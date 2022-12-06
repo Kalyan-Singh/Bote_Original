@@ -16,6 +16,7 @@ function Vote() {
   if(verificationRes){
     return <Confirmation pollID={pollID!} party={party!} verificationRes={verificationRes}></Confirmation>
   }
+  console.log(address);
 
   return (
     <div className="flex justify-center mt-28">
@@ -53,15 +54,15 @@ function Vote() {
         <div className="flex justify-center">
 
             <WorldIDWidget
-              actionId="wid_staging_c2b1c982eb6fccd0c9069e9df84da75c" // obtain this from developer.worldcoin.org
               signal={address}
-              enableTelemetry
               onSuccess={(verificationResponse) => {
                 console.log(verificationResponse);
                 setverificationRes(verificationResponse);
               }} // pass the proof to the API or your smart contract
               onError={(error) => console.error(error)}
               debug={true} // to aid with debugging, remove in production
+              enableTelemetry={true}
+              actionId="wid_staging_978b5b53ab94088150a6fc64d5ee3912" // obtain this from developer.worldcoin.org
             />
         </div>
       </form>

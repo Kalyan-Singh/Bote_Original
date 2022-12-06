@@ -1,4 +1,4 @@
-export const Bote ="0x6e9a4a164315f15bf0a83691a73ea80684b67459" as const;
+export const Bote = "0xB1B97101D8C56C2C0ed3fb38d76bDFCA05077159" as const;
 export const abi_Bote = [
   {
     inputs: [
@@ -8,7 +8,9 @@ export const abi_Bote = [
     stateMutability: "nonpayable",
     type: "constructor",
   },
+  { inputs: [], name: "Ended", type: "error" },
   { inputs: [], name: "InvalidNullifier", type: "error" },
+  { inputs: [], name: "NotStarted", type: "error" },
   {
     anonymous: false,
     inputs: [
@@ -77,7 +79,16 @@ export const abi_Bote = [
   {
     inputs: [{ internalType: "uint256", name: "_pollID", type: "uint256" }],
     name: "getState",
-    outputs: [{ internalType: "enum Bote.State", name: "", type: "uint8" }],
+    outputs: [
+      { internalType: "enum BoteOriginal.State", name: "", type: "uint8" },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "pollID", type: "uint256" }],
+    name: "getVotes",
+    outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
     stateMutability: "view",
     type: "function",
   },
@@ -91,22 +102,19 @@ export const abi_Bote = [
           { internalType: "address", name: "creator", type: "address" },
           { internalType: "string[]", name: "parties", type: "string[]" },
           { internalType: "uint256[]", name: "votes", type: "uint256[]" },
-          { internalType: "enum Bote.State", name: "c_state", type: "uint8" },
+          {
+            internalType: "enum BoteOriginal.State",
+            name: "c_state",
+            type: "uint8",
+          },
           { internalType: "uint256", name: "duration", type: "uint256" },
         ],
-        internalType: "struct Bote.Poll[]",
+        internalType: "struct BoteOriginal.Poll[]",
         name: "",
         type: "tuple[]",
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "uint256", name: "_pollID", type: "uint256" }],
-    name: "showResult",
-    outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -125,9 +133,9 @@ export const abi_Bote = [
       { internalType: "uint256", name: "_pollID", type: "uint256" },
       { internalType: "string", name: "_partyName", type: "string" },
     ],
-    name: "vote",
+    name: "verifyAndExecute",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
-] as const;
+];
